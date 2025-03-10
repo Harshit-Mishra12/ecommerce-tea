@@ -64,7 +64,6 @@ class AddressController extends Controller
     {
         $userId = Auth::id();
         $address = Address::where('user_id', $userId)->findOrFail($id);
-
         DB::transaction(function () use ($userId, $address) {
             // Unselect all addresses
             Address::where('user_id', $userId)->update(['is_selected' => false]);
