@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Providers;
 
+use App\Filament\Resources\AdminResource;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
 use Illuminate\Support\ServiceProvider;
@@ -9,6 +11,13 @@ class FilamentServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        // Filament::registerResources([
+        //     AdminResource::class,
+        //     // Other resources...
+        // ]);
+
+
+
         Filament::serving(function () {
             $user = auth()->user();
 

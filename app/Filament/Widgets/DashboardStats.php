@@ -16,8 +16,8 @@ class DashboardStats extends BaseWidget
     {
         return [
             Card::make('Total Products', Product::count()),
-            Card::make('Total Users', User::count()),
-           // Card::make('Total Orders', Order::count()),
+            Card::make('Total Users', User::where('role', 'user')->count()),
+            Card::make('Total Orders', Order::count()),
         ];
     }
 }

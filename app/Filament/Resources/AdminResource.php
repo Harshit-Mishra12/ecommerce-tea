@@ -2,43 +2,47 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\AdminResource\Pages;
+use App\Models\Admin;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\CheckboxList;
+use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Builder;
 
-class UserResource extends Resource
+
+class AdminResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Admin::class;
+    //  protected static ?string $navigationLabel = 'Admins main'; // Ensure this is set
+    // protected static ?string $navigationGroup = 'Settings'; // Optional, but ensure it matches
+    // protected static ?string $slug = 'admins'; // Ensure this is set correctly
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
     public static function shouldRegisterNavigation(): bool
     {
         return false;
-    }
-    public static function canCreate(): bool
-    {
-        return false; // 🚫 Hide "New User" button
     }
 
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->whereIn('role', ['user']);
+        return parent::getEloquentQuery()->whereIn('role', ['admin', 'sub-admin']);
+    }
+
+
+    public static function canCreate(): bool
+    {
+        return true; // ✅ Allow "New Admin"
     }
 
     public static function form(Form $form): Form
@@ -53,7 +57,7 @@ class UserResource extends Resource
                     ->required(fn($record) => $record === null),
                 Select::make('role')
                     ->options([
-                        'admin' => 'Admin',
+                        // 'admin' => 'Admin',
                         'sub-admin' => 'Sub-Admin',
                     ])
                     ->required(),
@@ -74,12 +78,14 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('role')->sortable(),
                 TextColumn::make('created_at')->dateTime(),
             ])
+
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
@@ -99,9 +105,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListAdmins::route('/'),
+            'create' => Pages\CreateAdmin::route('/create'),
+            'edit' => Pages\EditAdmin::route('/{record}/edit'),
         ];
     }
 
