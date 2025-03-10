@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Filament\Pages;
+
+use Filament\Pages\Dashboard as BaseDashboard;
+use App\Filament\Widgets\DashboardStats;
+
+class Dashboard 
+{
+    protected function getWidgets(): array
+    {
+        return [
+            DashboardStats::class, // Register the stats widget
+        ];
+    }
+}
