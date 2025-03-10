@@ -10,13 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\DB;
 
-class User extends Authenticatable implements FilamentUser
+class Admin extends Authenticatable
 {
     use HasFactory;
-    use HasRoles, HasApiTokens;
-
-
     protected $fillable = ['name', 'email', 'password', 'role', 'mobile', 'allowed_resources'];
+
+    protected $table = 'users'; // 👈 Use the "users" table instead of "admins"
+    use HasFactory;
+    use HasRoles, HasApiTokens;
 
     protected $hidden = ['password', 'remember_token'];
     protected $casts = [
@@ -67,9 +68,5 @@ class User extends Authenticatable implements FilamentUser
         return DB::table('users')
             ->where('id', $this->id)
             ->value('role'); // Assuming 'role' is a column in the 'users' table
-    }
-    public function addresses()
-    {
-        return $this->hasMany(Address::class);
     }
 }

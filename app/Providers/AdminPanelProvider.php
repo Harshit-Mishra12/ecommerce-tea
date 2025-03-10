@@ -153,6 +153,10 @@ class AdminPanelProvider extends ServiceProvider
                 ->label('Products')
                 ->url(route('filament.resources.products.index')) // ✅ Correct Filament v2 route
                 ->icon('heroicon-o-shopping-cart'),
+            'orders' => NavigationItem::make()
+                ->label('Orders')
+                ->url(route('filament.resources.orders.index'))
+                ->icon('heroicon-o-truck'), // 🚚 More suitable icon for orders/shipping
 
             'coupons' => NavigationItem::make()
                 ->label('Coupons')
@@ -163,6 +167,12 @@ class AdminPanelProvider extends ServiceProvider
                 ->label('Users')
                 ->url(route('filament.resources.users.index')) // ✅ Correct Filament v2 route
                 ->icon('heroicon-o-user-group'),
+            'admins' => NavigationItem::make()
+                ->label('Admins')
+                ->url(route('filament.resources.admins.index')) // ✅ Correct Filament v2 route
+                ->icon('heroicon-o-user-circle'),
+
+
 
         ];
 

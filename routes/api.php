@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\AddressController;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CartController;
 use App\Http\Controllers\V1\ProductController;
@@ -37,6 +38,10 @@ Route::prefix('v1')->group(function () {
 
             Route::post('/change-password', [AuthController::class, 'changePassword']);
 
+            Route::get('/addresses', [AddressController::class, 'index']);
+            Route::post('/addresses', [AddressController::class, 'store']);
+            Route::post('/addresses/{id}/select', [AddressController::class, 'selectAddress']);
+            Route::delete('/addresses/{id}', [AddressController::class, 'destroy']);
         });
     });
 
