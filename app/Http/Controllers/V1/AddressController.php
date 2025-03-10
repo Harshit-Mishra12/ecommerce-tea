@@ -67,7 +67,6 @@ class AddressController extends Controller
         DB::transaction(function () use ($userId, $address) {
             // Unselect all addresses
             Address::where('user_id', $userId)->update(['is_selected' => false]);
-
             // Select the new address
             $address->update(['is_selected' => true]);
         });
