@@ -31,7 +31,6 @@ class CartController extends Controller
             ['user_id' => auth()->id(), 'product_id' => $request->product_id],
             ['quantity' => $request->quantity]
         );
-
         return response()->json(['status_code' => 1,'message' => 'Product added to cart', 'data' => $cart]);
     }
 
