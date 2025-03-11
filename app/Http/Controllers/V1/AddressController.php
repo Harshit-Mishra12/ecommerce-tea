@@ -84,7 +84,6 @@ class AddressController extends Controller
 
         DB::transaction(function () use ($userId, $address) {
             $address->delete();
-
             // If deleted address was selected, choose another as default
             if ($address->is_selected) {
                 $newDefault = Address::where('user_id', $userId)->first();

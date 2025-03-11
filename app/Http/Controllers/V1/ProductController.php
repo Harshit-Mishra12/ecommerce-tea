@@ -20,7 +20,6 @@ class ProductController extends Controller
     public function fetchProducts()
     {
         $products = Product::all();
-
         return response()->json([
             'status_code' => 1,
             'message' => 'Product list retrieved successfully',
