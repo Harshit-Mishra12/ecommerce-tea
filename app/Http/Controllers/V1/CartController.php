@@ -43,7 +43,6 @@ class CartController extends Controller
             'user_id' => auth()->id(),
             'product_id' => $request->product_id
         ])->delete();
-
         return response()->json(['status_code' => 1,'message' => 'Product removed from cart']);
     }
 
