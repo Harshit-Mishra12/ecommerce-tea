@@ -20,10 +20,29 @@ class ProductController extends Controller
     public function fetchProducts()
     {
         $products = Product::all();
+
+        // Transform the products to include only the first image as product_image
+        $transformedProducts = $products->map(function ($product) {
+            $images = $product->images;
+            $firstImage = !empty($images) ? reset($images) : null;
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'stock' => $product->stock,
+                'product_image' => $firstImage,
+                'is_active' => $product->is_active,
+                'created_at' => $product->created_at,
+                'updated_at' => $product->updated_at,
+            ];
+        });
+
         return response()->json([
             'status_code' => 1,
             'message' => 'Product list retrieved successfully',
-            'data' => $products
+            'data' => $transformedProducts
         ]);
     }
 }

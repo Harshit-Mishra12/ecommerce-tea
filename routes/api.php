@@ -40,8 +40,11 @@ Route::prefix('v1')->group(function () {
 
             Route::get('/addresses', [AddressController::class, 'index']);
             Route::post('/addresses', [AddressController::class, 'store']);
-            Route::post('/addresses/{id}/select', [AddressController::class, 'selectAddress']);
+            Route::get('/addresses/{id}/select', [AddressController::class, 'selectAddress']);
             Route::delete('/addresses/{id}', [AddressController::class, 'destroy']);
+
+            Route::post('/profile/save', [AddressController::class, 'updateProfile']);
+            Route::post('/profile/fetch', [AddressController::class, 'getProfile']);
         });
     });
 
