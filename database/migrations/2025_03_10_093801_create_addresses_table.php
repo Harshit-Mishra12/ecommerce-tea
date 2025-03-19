@@ -10,6 +10,8 @@ return new class extends Migration {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name'); // Added 'name' column
+            $table->string('mobile'); // Added 'mobile' column
             $table->string('street');
             $table->string('city');
             $table->string('state');

@@ -68,8 +68,8 @@ class Helper
         $file->move($path, $filename);
 
         // $baseUrl = getenv('APP_URL');
-        // $baseUrl = 'https://runskart.boxinallsoftech.com/public';
-        $baseUrl = 'https://paleturquoise-crab-208767.hostingersite.com/runskart/public';
+         $baseUrl = 'http://127.0.0.1:8000';
+      //  $baseUrl = 'https://paleturquoise-crab-208767.hostingersite.com/runskart/public';
 
 
         $filePath = $baseUrl . $dir . $filename;
