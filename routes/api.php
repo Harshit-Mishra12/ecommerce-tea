@@ -3,6 +3,10 @@
 use App\Http\Controllers\V1\AddressController;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CartController;
+use App\Http\Controllers\V1\CheckoutController;
+use App\Http\Controllers\V1\CoupenController;
+use App\Http\Controllers\V1\OrderController;
+use App\Http\Controllers\V1\PaymentController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\WishlistController;
 use Illuminate\Http\Request;
@@ -26,6 +30,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('user')->group(function () {
             Route::get("/products/fetch", [ProductController::class, 'fetchProducts']);
+
+            Route::get("/products/similar/fetch", [ProductController::class, 'fetchSimilarProducts']);
+
             Route::post("/products/wishlist/save", [WishlistController::class, 'addToWishlist']);
 
             Route::get('/wishlist/add/{product_id}', [WishlistController::class, 'addToWishlist']);
@@ -33,6 +40,10 @@ Route::prefix('v1')->group(function () {
             Route::get('/wishlist', [WishlistController::class, 'getWishlist']);
 
             Route::post('/cart/add', [CartController::class, 'addToCart']);
+            Route::post('/cart/increment', [CartController::class, 'incrementCartQuantity']);
+            Route::post('/coupen/validate', [CoupenController::class, 'applyCouponBeforeCheckout']);
+            Route::get('/coupons/fetch', [CoupenController::class, 'fetchCoupen']);
+
             Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
             Route::get('/cart', [CartController::class, 'getCart']);
 
@@ -45,8 +56,19 @@ Route::prefix('v1')->group(function () {
 
             Route::post('/profile/save', [AddressController::class, 'updateProfile']);
             Route::post('/profile/fetch', [AddressController::class, 'getProfile']);
+
+
+            Route::post('/checkout', [CheckoutController::class, 'checkout']);
+            // Payment callback (frontend verification)
+            // Route::post('/payment/callback', [PaymentController::class, 'paymentCallback']);
+
+            Route::post('/payment/process', [PaymentController::class, 'processPayment']);
+            //orders
+            Route::post('/orders/fetch', [OrderController::class, 'getOrders']);
         });
     });
+
+    Route::post('/webhook/razorpay', [PaymentController::class, 'handleWebhook']);
 
     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {});
 });
