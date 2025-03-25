@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up PHP
-        uses:  shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.0"
+          php-version: "8.2"
 
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
@@ -47,6 +47,4 @@ jobs:
           password: Rammandir@2021
           port: 65002
           source: .
-          target: public_html/public_html/ecommercetea
-
-
+          target: /home/u790439483/domains/boxinallsoftech.com/public_html/admin
