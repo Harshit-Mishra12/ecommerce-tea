@@ -35,8 +35,8 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('order_id')
-                    ->label('Order ID')
+                TextInput::make('order_number')
+                    ->label('Order Number')
                     ->disabled()
                     ->required(),
 
@@ -46,7 +46,7 @@ class OrderResource extends Resource
                     ->searchable()
                     ->required(),
 
-                TextInput::make('total_amount')
+                TextInput::make('total')
                     ->label('Total Amount')
                     ->numeric()
                     ->required(),
@@ -67,12 +67,16 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('order_id')->label('Order ID')->sortable()->searchable(),
+                TextColumn::make('order_number')->label('Order Number')->sortable()->searchable(),
                 TextColumn::make('user.name')->label('Customer')->sortable()->searchable(),
-                TextColumn::make('total_amount')->label('Total Amount')->sortable(),
+                TextColumn::make('total')->label('Total Amount')->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
                     ->sortable(),
+                TextColumn::make('payment_status')
+                    ->label('Payment Status')
+                    ->sortable(),
+
                 TextColumn::make('created_at')->label('Order Date')->dateTime()->sortable(),
             ])
             ->actions([
