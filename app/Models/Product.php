@@ -24,8 +24,12 @@ class Product extends Model
     ];
 
     public function wishlists()
-{
-    return $this->hasMany(Wishlist::class);
-}
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 
+    public function decrementStock($quantity)
+    {
+        $this->decrement('stock', $quantity);
+    }
 }
